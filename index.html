@@ -2,77 +2,75 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Un Regalo Amarillo</title>
+  <title>Flores Amarillas para Ti</title>
   <link rel="icon" href="flor.png" type="image/png">
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: radial-gradient(circle at center, #fffde7 0%, #ffe082 100%);
-      font-family: 'Georgia', serif;
-      color: #5d4a00;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
-    }
-
-    .tarjeta {
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 20px;
-      padding: 2em;
-      max-width: 600px;
+      background: linear-gradient(to bottom, #fffbe6, #ffd700);
+      font-family: 'Segoe UI', sans-serif;
+      color: #4b3e2e;
       text-align: center;
-      box-shadow: 0 0 30px rgba(255, 204, 0, 0.3);
-      animation: aparecer 2s ease forwards;
-      opacity: 0;
-    }
-
-    @keyframes aparecer {
-      to { opacity: 1; transform: scale(1); }
     }
 
     h1 {
       font-size: 2.5em;
-      margin-bottom: 0.5em;
-      font-weight: normal;
+      margin-top: 1em;
     }
 
     p {
-      font-size: 1.2em;
-      margin: 1em 0;
+      font-size: 1.1em;
+      max-width: 600px;
+      margin: auto;
     }
 
-    .flor-svg {
-      width: 100px;
-      margin: 1em auto;
-      transition: transform 1.5s ease, filter 1.5s ease;
-    }
-
-    .flor-svg.abierta {
-      transform: scale(1.5) rotate(360deg);
-      filter: drop-shadow(0 0 15px #fdd835);
-    }
-
-    .boton {
-      background-color: #fdd835;
-      color: #5d4a00;
+    .button {
+      background-color: #ffcc00;
       border: none;
       padding: 1em 2em;
       font-size: 1em;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
-      margin-top: 1.5em;
-      box-shadow: 0 0 15px #ffe082;
       transition: background-color 0.3s;
+      margin-top: 2em;
       z-index: 2;
       position: relative;
     }
 
-    .boton:hover {
-      background-color: #fbc02d;
+    .button:hover {
+      background-color: #e6b800;
+    }
+
+    .flower {
+      font-size: 4em;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 1s ease;
+      margin-top: 2em;
+      z-index: 2;
+      position: relative;
+    }
+
+    .flower.show {
+      opacity: 1;
+      transform: scale(1.2) rotate(360deg);
+      filter: drop-shadow(0 0 10px #fdd835);
+    }
+
+    .message {
+      font-size: 1.2em;
+      margin-top: 1em;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      z-index: 2;
+      position: relative;
+    }
+
+    .message.show {
+      opacity: 1;
     }
 
     #flower-container {
@@ -88,7 +86,7 @@
     .falling-flower {
       position: absolute;
       top: -50px;
-      font-size: 2em;
+      font-size: 1.8em;
       animation: fall 6s linear infinite;
       opacity: 0.9;
     }
@@ -98,45 +96,92 @@
       100% { transform: translateY(100vh) rotate(360deg); }
     }
 
+    #visualizador {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 6px;
+      z-index: 2;
+      padding: 0 1em;
+    }
+
+    .barra {
+      flex: 1;
+      max-width: 20px;
+      height: 60px;
+      background: linear-gradient(to top, #fbc02d, #fff176);
+      border-radius: 4px;
+      transition: height 0.2s ease;
+    }
+
     audio {
       display: none;
     }
   </style>
 </head>
 <body>
-  <div class="tarjeta">
-    <h1>🌞 Flores Amarillas para Ti</h1>
-    <p>Hoy te regalo luz, color y esperanza. Que cada pétalo te abrace con cariño, y que el sol te recuerde lo especial que eres.</p>
-    <div id="flor" class="flor-svg">
-      <svg viewBox="0 0 64 64" fill="#fdd835" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="32" cy="32" r="10" fill="#fbc02d"/>
-        <path d="M32 2 L36 20 L32 18 L28 20 Z" />
-        <path d="M32 62 L36 44 L32 46 L28 44 Z" />
-        <path d="M2 32 L20 36 L18 32 L20 28 Z" />
-        <path d="M62 32 L44 36 L46 32 L44 28 Z" />
-      </svg>
-    </div>
-    <p style="font-style:italic;">Gracias por estar. Este regalo digital está hecho con todo mi cariño 💛</p>
-    <button class="boton" onclick="activarRegalo()">🌼 Recibe tu flor</button>
-  </div>
+  <h1>🌼 Te regalo flores amarillas 🌼</h1>
+  <p>Porque el 21 de septiembre no es solo una fecha, es un deseo: que todo lo bueno te florezca. Que el sol te abrace fuerte, que el amor te encuentre, y que nunca falten motivos para sonreír.</p>
+  <p style="margin-top:2em; font-weight:bold;">Te quiero mucho 💛<br>Gracias por tu amistad, por estar, por ser tú.</p>
+  <p style="margin-top:1em; font-style:italic;">Aunque no pueda regalarte flores físicamente,<br>te hice esto con todo mi cariño.</p>
 
+  <button class="button" onclick="mostrarFlor()">Recibe tu flor</button>
+
+  <div id="flor" class="flower">💐</div>
+  <div id="mensaje" class="message">¡Feliz 21 de septiembre! Que tus días se llenen de luz, color y cariño 🌞</div>
   <div id="flower-container"></div>
 
-  <!-- Audio local -->
+  <div id="visualizador">
+    <!-- 25 barras -->
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+  </div>
+
   <audio id="audio" src="music.mp3" preload="auto"></audio>
 
   <script>
-    function activarRegalo() {
-      document.getElementById('flor').classList.add('abierta');
-      lanzarFlores();
-      reproducirMusica();
+    function mostrarFlor() {
+      document.getElementById('flor').classList.add('show');
+      setTimeout(() => {
+        document.getElementById('mensaje').classList.add('show');
+        lanzarFlores();
+        reproducirMusica();
+      }, 1200);
     }
 
     function lanzarFlores() {
       const ancho = window.innerWidth;
       const cantidad = ancho < 600 ? 25 : 50;
       const contenedor = document.getElementById('flower-container');
-      const emojis = ['🌻', '💛', '🌼', '✨', '🌞'];
+      const emojis = ['🌻', '💛', '💐', '🧡', '🌼'];
 
       for (let i = 0; i < cantidad; i++) {
         const flor = document.createElement('div');
@@ -152,12 +197,33 @@
     function reproducirMusica() {
       const audio = document.getElementById('audio');
       audio.volume = 0.4;
-      audio.play().catch(() => {
+
+      audio.play().then(() => {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const source = context.createMediaElementSource(audio);
+        const analyser = context.createAnalyser();
+        source.connect(analyser);
+        analyser.connect(context.destination);
+        analyser.fftSize = 64;
+
+        const barras = document.querySelectorAll('.barra');
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        function animarVisualizador() {
+          analyser.getByteFrequencyData(dataArray);
+          for (let i = 0; i < barras.length; i++) {
+            const valor = dataArray[i] || 0;
+            barras[i].style.height = (valor / 2 + 20) + 'px';
+          }
+          requestAnimationFrame(animarVisualizador);
+        }
+
+        animarVisualizador();
+      }).catch(e => {
         console.log("Autoplay bloqueado por el navegador");
       });
     }
   </script>
 </body>
 </html>
-
-
