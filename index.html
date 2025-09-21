@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flores Amarillas para Ti</title>
   <link rel="icon" href="flor.png" type="image/png">
   <style>
@@ -96,6 +95,7 @@
       100% { transform: translateY(100vh) rotate(360deg); }
     }
 
+    /* Visualizador sincronizado */
     #visualizador {
       position: fixed;
       bottom: 0;
@@ -116,11 +116,6 @@
       height: 60px;
       background: linear-gradient(to top, #fbc02d, #fff176);
       border-radius: 4px;
-      transition: height 0.2s ease;
-    }
-
-    audio {
-      display: none;
     }
   </style>
 </head>
@@ -136,27 +131,43 @@
   <div id="mensaje" class="message">¡Feliz 21 de septiembre! Que tus días se llenen de luz, color y cariño 🌞</div>
   <div id="flower-container"></div>
 
+  <!-- Visualizador -->
   <div id="visualizador">
     <!-- 25 barras -->
-    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
-    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
-    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
-    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
-    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
+    <div class="barra"></div>
   </div>
 
-  <!-- Audio con varias fuentes -->
+  <!-- Audio -->
   <audio id="audio" preload="auto">
     <source src="music.mp3" type="audio/mpeg">
-    <source src="music.ogg" type="audio/ogg">
     Tu navegador no soporta audio.
   </audio>
 
   <script>
-    let contexto; 
-    let source;
-    let analyser;
-
     function mostrarFlor() {
       document.getElementById('flor').classList.add('show');
       setTimeout(() => {
@@ -187,36 +198,31 @@
       const audio = document.getElementById('audio');
       audio.volume = 0.4;
 
-      if (!contexto) {
-        contexto = new (window.AudioContext || window.webkitAudioContext)();
-        source = contexto.createMediaElementSource(audio);
-        analyser = contexto.createAnalyser();
+      audio.play().then(() => {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const source = context.createMediaElementSource(audio);
+        const analyser = context.createAnalyser();
         source.connect(analyser);
-        analyser.connect(contexto.destination);
+        analyser.connect(context.destination);
         analyser.fftSize = 64;
-        activarVisualizador();
-      }
 
-      audio.play().catch(e => {
-        console.log("El navegador bloqueó la reproducción automática:", e);
-      });
-    }
+        const barras = document.querySelectorAll('.barra');
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
 
-    function activarVisualizador() {
-      const barras = document.querySelectorAll('.barra');
-      const bufferLength = analyser.frequencyBinCount;
-      const dataArray = new Uint8Array(bufferLength);
-
-      function animarVisualizador() {
-        analyser.getByteFrequencyData(dataArray);
-        for (let i = 0; i < barras.length; i++) {
-          const valor = dataArray[i] || 0;
-          barras[i].style.height = (valor / 2 + 20) + 'px';
+        function animarVisualizador() {
+          analyser.getByteFrequencyData(dataArray);
+          for (let i = 0; i < barras.length; i++) {
+            const valor = dataArray[i] || 0;
+            barras[i].style.height = (valor / 2 + 20) + 'px';
+          }
+          requestAnimationFrame(animarVisualizador);
         }
-        requestAnimationFrame(animarVisualizador);
-      }
 
-      animarVisualizador();
+        animarVisualizador();
+      }).catch(e => {
+        console.log("Autoplay bloqueado o archivo no encontrado:", e);
+      });
     }
   </script>
 </body>
