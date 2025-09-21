@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Flores Rosadas para Ti</title>
+  <title>Flores Amarillas para Ti</title>
   <link rel="icon" href="flor.png" type="image/png">
   <style>
     html, body {
@@ -10,16 +10,15 @@
       padding: 0;
       height: 100vh;
       overflow: hidden;
-      background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+      background: linear-gradient(to bottom, #fffbe6, #ffd700);
       font-family: 'Segoe UI', sans-serif;
-      color: #5c3a3a;
+      color: #4b3e2e;
       text-align: center;
     }
 
     h1 {
       font-size: 2.5em;
       margin-top: 1em;
-      color: #d147a3;
     }
 
     p {
@@ -29,7 +28,7 @@
     }
 
     .button {
-      background-color: #ff77aa;
+      background-color: #ffcc00;
       border: none;
       padding: 1em 2em;
       font-size: 1em;
@@ -42,7 +41,7 @@
     }
 
     .button:hover {
-      background-color: #e06699;
+      background-color: #e6b800;
     }
 
     .flower {
@@ -115,21 +114,21 @@
       flex: 1;
       max-width: 20px;
       height: 60px;
-      background: linear-gradient(to top, #ff77aa, #ffc1e3);
+      background: linear-gradient(to top, #fbc02d, #fff176);
       border-radius: 4px;
     }
   </style>
 </head>
 <body>
-  <h1>🌸 Te regalo flores rosadas 🌸</h1>
-  <p>Porque este día especial merece un toque de amor y dulzura. Que la alegría y la ternura llenen tu corazón, y que nunca falten razones para sonreír.</p>
-  <p style="margin-top:2em; font-weight:bold;">Te quiero mucho 💖<br>Gracias por tu amistad, por estar, por ser tú.</p>
+  <h1>🌼 Te regalo flores amarillas 🌼</h1>
+  <p>Porque el 21 de septiembre no es solo una fecha, es un deseo: que todo lo bueno te florezca. Que el sol te abrace fuerte, que el amor te encuentre, y que nunca falten motivos para sonreír.</p>
+  <p style="margin-top:2em; font-weight:bold;">Te quiero mucho 💛<br>Gracias por tu amistad, por estar, por ser tú.</p>
   <p style="margin-top:1em; font-style:italic;">Aunque no pueda regalarte flores físicamente,<br>te hice esto con todo mi cariño.</p>
 
   <button class="button" onclick="mostrarFlor()">Recibe tu flor</button>
 
   <div id="flor" class="flower">💐</div>
-  <div id="mensaje" class="message">¡Feliz día! Que tus momentos se llenen de luz, color y cariño 🌞</div>
+  <div id="mensaje" class="message">¡Feliz 21 de septiembre! Que tus días se llenen de luz, color y cariño 🌞</div>
   <div id="flower-container"></div>
 
   <!-- Visualizador -->
@@ -178,7 +177,7 @@
       const ancho = window.innerWidth;
       const cantidad = ancho < 600 ? 25 : 50;
       const contenedor = document.getElementById('flower-container');
-      const emojis = ['🌸', '💖', '💐', '🌷', '🌺'];
+      const emojis = ['🌻', '💛', '💐', '🧡', '🌼'];
 
       for (let i = 0; i < cantidad; i++) {
         const flor = document.createElement('div');
@@ -224,3 +223,7 @@
   </script>
 </body>
 </html>
+
+
+
+
