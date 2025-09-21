@@ -145,7 +145,12 @@
     <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
   </div>
 
-  <audio id="audio" src="music.mp3" preload="auto"></audio>
+  <!-- Audio con varias fuentes -->
+  <audio id="audio" preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+    <source src="music.ogg" type="audio/ogg">
+    Tu navegador no soporta audio.
+  </audio>
 
   <script>
     let contexto; 
@@ -182,7 +187,6 @@
       const audio = document.getElementById('audio');
       audio.volume = 0.4;
 
-      // Crear el contexto al primer click
       if (!contexto) {
         contexto = new (window.AudioContext || window.webkitAudioContext)();
         source = contexto.createMediaElementSource(audio);
@@ -217,4 +221,3 @@
   </script>
 </body>
 </html>
-
