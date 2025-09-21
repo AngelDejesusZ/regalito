@@ -20,7 +20,7 @@
     }
 
     .tarjeta {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.85);
       border-radius: 20px;
       padding: 2em;
       max-width: 600px;
@@ -48,12 +48,54 @@
     .flor-svg {
       width: 100px;
       margin: 1em auto;
-      animation: girar 10s linear infinite;
+      transition: transform 1.5s ease, filter 1.5s ease;
     }
 
-    @keyframes girar {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    .flor-svg.abierta {
+      transform: scale(1.5) rotate(360deg);
+      filter: drop-shadow(0 0 15px #fdd835);
+    }
+
+    .boton {
+      background-color: #fdd835;
+      color: #5d4a00;
+      border: none;
+      padding: 1em 2em;
+      font-size: 1em;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 1.5em;
+      box-shadow: 0 0 15px #ffe082;
+      transition: background-color 0.3s;
+      z-index: 2;
+      position: relative;
+    }
+
+    .boton:hover {
+      background-color: #fbc02d;
+    }
+
+    #flower-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .falling-flower {
+      position: absolute;
+      top: -50px;
+      font-size: 2em;
+      animation: fall 6s linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
     }
 
     audio {
@@ -65,19 +107,54 @@
   <div class="tarjeta">
     <h1>🌞 Flores Amarillas para Ti</h1>
     <p>Hoy te regalo luz, color y esperanza. Que cada pétalo te abrace con cariño, y que el sol te recuerde lo especial que eres.</p>
-    <div class="flor-svg">
+    <div id="flor" class="flor-svg">
       <svg viewBox="0 0 64 64" fill="#fdd835" xmlns="http://www.w3.org/2000/svg">
         <circle cx="32" cy="32" r="10" fill="#fbc02d"/>
         <path d="M32 2 L36 20 L32 18 L28 20 Z" />
         <path d="M32 62 L36 44 L32 46 L28 44 Z" />
         <path d="M2 32 L20 36 L18 32 L20 28 Z" />
         <path d="M62 32 L44 36 L46 32 L44 28 Z" />
-        <!-- Puedes agregar más pétalos si quieres -->
       </svg>
     </div>
     <p style="font-style:italic;">Gracias por estar. Este regalo digital está hecho con todo mi cariño 💛</p>
+    <button class="boton" onclick="activarRegalo()">🌼 Recibe tu flor</button>
   </div>
 
-  <audio autoplay loop src="music.mp3" preload="auto" crossorigin="anonymous"></audio>
+  <div id="flower-container"></div>
+  <audio id="audio" src="music.mp3" preload="auto" crossorigin="anonymous"></audio>
+
+  <script>
+    function activarRegalo() {
+      const flor = document.getElementById('flor');
+      flor.classList.add('abierta');
+      lanzarFlores();
+      reproducirMusica();
+    }
+
+    function lanzarFlores() {
+      const ancho = window.innerWidth;
+      const cantidad = ancho < 600 ? 25 : 50;
+      const contenedor = document.getElementById('flower-container');
+      const emojis = ['🌻', '💛', '🌼', '✨', '🌞'];
+
+      for (let i = 0; i < cantidad; i++) {
+        const flor = document.createElement('div');
+        flor.classList.add('falling-flower');
+        flor.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        flor.style.left = Math.random() * ancho + 'px';
+        flor.style.animationDuration = (4 + Math.random() * 3) + 's';
+        contenedor.appendChild(flor);
+        setTimeout(() => flor.remove(), 7000);
+      }
+    }
+
+    function reproducirMusica() {
+      const audio = document.getElementById('audio');
+      audio.volume = 0.4;
+      audio.play().catch(() => {
+        console.log("Autoplay bloqueado por el navegador");
+      });
+    }
+  </script>
 </body>
 </html>
