@@ -200,30 +200,34 @@
       audio.volume = 0.4;
 
       audio.play().then(() => {
-        const context = new (window.AudioContext || window.webkitAudioContext)();
-        const source = context.createMediaElementSource(audio);
-        const analyser = context.createAnalyser();
-        source.connect(analyser);
-        analyser.connect(context.destination);
-        analyser.fftSize = 64;
-
-        const barras = document.querySelectorAll('.barra');
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-
-        function animarVisualizador() {
-          analyser.getByteFrequencyData(dataArray);
-          for (let i = 0; i < barras.length; i++) {
-            const valor = dataArray[i] || 0;
-            barras[i].style.height = (valor / 2 + 20) + 'px';
-          }
-          requestAnimationFrame(animarVisualizador);
-        }
-
-        animarVisualizador();
+        activarVisualizador(audio);
       }).catch(e => {
         console.log("Autoplay bloqueado por el navegador");
       });
+    }
+
+    function activarVisualizador(audio) {
+      const context = new (window.AudioContext || window.webkitAudioContext)();
+      const source = context.createMediaElementSource(audio);
+      const analyser = context.createAnalyser();
+      source.connect(analyser);
+      analyser.connect(context.destination);
+      analyser.fftSize = 64;
+
+      const barras = document.querySelectorAll('.barra');
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      function animarVisualizador() {
+        analyser.getByteFrequencyData(dataArray);
+        for (let i = 0; i < barras.length; i++) {
+          const valor = dataArray[i] || 0;
+          barras[i].style.height = (valor / 2 + 20) + 'px';
+        }
+        requestAnimationFrame(animarVisualizador);
+      }
+
+      animarVisualizador();
     }
   </script>
 </body>
