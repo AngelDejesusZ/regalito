@@ -1,140 +1,209 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>🌼 Un detalle para ti 🌼</title>
-  <link rel="icon" href="flor.png" type="image/png">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      overflow: hidden;
-      background: linear-gradient(to bottom, #fffde7, #fff176);
-      font-family: 'Segoe UI', sans-serif;
-      color: #5c3a1f;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>🌼 Feliz 21 de Septiembre 🌼</title>
+<link rel="icon" href="flor.png" type="image/png">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #fffde7, #fff176);
+    font-family: 'Segoe UI', sans-serif;
+    color: #5c3a1f;
+    text-align: center;
+  }
 
-    h1 {
-      font-size: 2.8em;
-      margin-top: 1em;
-      color: #f9a825;
-    }
+  h1 {
+    font-size: 2.8em;
+    margin-top: 1em;
+    color: #f9a825;
+  }
 
-    p {
-      font-size: 1.2em;
-      max-width: 650px;
-      margin: 1em auto;
-    }
+  p {
+    font-size: 1.2em;
+    max-width: 650px;
+    margin: 1em auto;
+  }
 
-    .button {
-      background-color: #ffd54f;
-      border: none;
-      padding: 1em 2em;
-      font-size: 1em;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 2em;
-      position: relative;
-      z-index: 2;
-    }
+  .button {
+    background-color: #ffd54f;
+    border: none;
+    padding: 1em 2em;
+    font-size: 1em;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2em;
+    position: relative;
+    z-index: 2;
+  }
 
-    .button:hover {
-      transform: scale(1.05);
-      background-color: #ffca28;
-    }
+  .button:hover {
+    transform: scale(1.05);
+    background-color: #ffca28;
+  }
 
-    .flower {
-      font-size: 4em;
-      opacity: 0;
-      transform: scale(0.5);
-      transition: all 1s ease;
-      margin-top: 2em;
-      position: relative;
-      z-index: 2;
-    }
+  .flower {
+    font-size: 4em;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 1s ease;
+    margin-top: 2em;
+    position: relative;
+    z-index: 2;
+  }
 
-    .flower.show {
-      opacity: 1;
-      transform: scale(1.3) rotate(-5deg);
-    }
+  .flower.show {
+    opacity: 1;
+    transform: scale(1.3) rotate(-5deg);
+  }
 
-    .message {
-      font-size: 1.2em;
-      margin-top: 1em;
-      opacity: 0;
-      transition: opacity 1.5s ease;
-      position: relative;
-      z-index: 2;
-    }
+  .message {
+    font-size: 1.2em;
+    margin-top: 1em;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    position: relative;
+    z-index: 2;
+  }
 
-    .message.show {
-      opacity: 1;
-    }
+  .message.show {
+    opacity: 1;
+  }
 
-    #flower-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
+  #flower-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
 
-    .falling-flower {
-      position: absolute;
-      top: -50px;
-      font-size: 2em;
-      animation: fall 6s linear infinite;
-      opacity: 0.9;
-    }
+  .falling-flower {
+    position: absolute;
+    top: -50px;
+    font-size: 2em;
+    opacity: 0.9;
+    animation: fall linear forwards;
+  }
 
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); }
-    }
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity:1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity:0.8; }
+  }
 
-    #visualizador {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 80px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      gap: 6px;
-      z-index: 2;
-      padding: 0 1em;
-    }
+  #visualizador {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    z-index: 2;
+    padding: 0 1em;
+  }
 
-    .barra {
-      flex: 1;
-      max-width: 20px;
-      height: 60px;
-      background: linear-gradient(to top, #ffeb3b, #fff176);
-      border-radius: 4px;
-    }
-  </style>
+  .barra {
+    flex: 1;
+    max-width: 20px;
+    height: 60px;
+    background: linear-gradient(to top, #ffeb3b, #fff176);
+    border-radius: 4px;
+  }
+</style>
 </head>
 <body>
-  <h1>🌼 Para ti, con cariño 🌼</h1>
-  <p>Quise regalarte algo especial que alegrara tu día. Que cada momento se llene de luz y sonrisas, y que nunca falten razones para sentirte feliz.</p>
-  <p style="margin-top:2em; font-weight:bold;">Eres increíble 💛<br>Gracias por ser tú y estar siempre presente.</p>
-  <p style="margin-top:1em; font-style:italic;">Aunque no pueda darte flores reales, aquí te envío todo mi cariño en cada pétalo.</p>
+<h1>🌼 Feliz 21 de Septiembre 🌼</h1>
+<p>Hoy es un día especial y quería enviarte un detalle lleno de alegría y luz. Que tu día brille tanto como tú y que siempre tengas motivos para sonreír.</p>
+<p style="margin-top:2em; font-weight:bold;">Eres increíble 💛<br>Gracias por tu amistad y por ser tú.</p>
+<p style="margin-top:1em; font-style:italic;">Aunque no pueda darte flores reales, aquí te envío todo mi cariño en cada pétalo.</p>
 
-  <button class="button" onclick="mostrarFlor()">Recibe tu flor</button>
+<button class="button" onclick="mostrarFlor()">Haz que lluevan flores 🌸</button>
 
-  <div id="flor" class="flower">💐</div>
-  <div id="mensaje" class="message">¡Que tu día brille tanto como tú! ☀️🌼</div>
-  <div id="flower-container"></div>
+<div id="flor" class="flower">💐</div>
+<div id="mensaje" class="message">¡Que tu 21 de septiembre esté lleno de magia y alegría! ☀️🌼</div>
+<div id="flower-container"></div>
 
-  <!-- Visualizador -->
-  <div id="visualizador">
-    <div class="barra"></div><div class="barra"></div><div class="barra"></div>
-    <div class="barra"></div><div class="barra"></div><div class="barra"></div>
-    <div class="barra"></div><div class="barra"></div><div class="barra"></
+<!-- Visualizador -->
+<div id="visualizador">
+  <div class="barra"></div><div class="barra"></div><div class="barra"></div>
+  <div class="barra"></div><div class="barra"></div><div class="barra"></div>
+  <div class="barra"></div><div class="barra"></div><div class="barra"></div>
+  <div class="barra"></div>
+</div>
 
+<!-- Audio -->
+<audio id="audio" src="music.mp3" preload="auto"></audio>
+
+<script>
+function mostrarFlor() {
+  document.getElementById('flor').classList.add('show');
+
+  // Reproducir música
+  const audio = document.getElementById('audio');
+  audio.volume = 0.4;
+  audio.play().catch(e => console.log("Autoplay bloqueado"));
+
+  // Mostrar mensaje y lanzar lluvia de flores
+  setTimeout(() => {
+    document.getElementById('mensaje').classList.add('show');
+    lanzarFlores();
+  }, 1200);
+}
+
+function lanzarFlores() {
+  const ancho = window.innerWidth;
+  const cantidad = ancho < 600 ? 30 : 60;
+  const contenedor = document.getElementById('flower-container');
+  const emojis = ['🌼','💛','💐','🌻','🌸'];
+
+  for (let i = 0; i < cantidad; i++) {
+    const flor = document.createElement('div');
+    flor.classList.add('falling-flower');
+    flor.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    flor.style.left = Math.random() * ancho + 'px';
+    flor.style.fontSize = (20 + Math.random() * 20) + 'px';
+    flor.style.animationDuration = (4 + Math.random() * 4) + 's';
+    contenedor.appendChild(flor);
+    // Quitar después de caer
+    setTimeout(() => flor.remove(), 8000);
+  }
+}
+
+function reproducirMusica() {
+  const audio = document.getElementById('audio');
+  audio.volume = 0.4;
+
+  audio.play().then(() => {
+    const context = new (window.AudioContext || window.webkitAudioContext)();
+    const source = context.createMediaElementSource(audio);
+    const analyser = context.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(context.destination);
+    analyser.fftSize = 64;
+
+    const barras = document.querySelectorAll('.barra');
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function animarVisualizador() {
+      analyser.getByteFrequencyData(dataArray);
+      for (let i = 0; i < barras.length; i++) {
+        barras[i].style.height = (dataArray[i] / 2 + 20) + 'px';
+      }
+      requestAnimationFrame(animarVisualizador);
+    }
+    animarVisualizador();
+  }).catch(e => console.log("Autoplay bloqueado por el navegador"));
+}
+</script>
+</body>
+</html>
