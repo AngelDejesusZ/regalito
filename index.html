@@ -1,229 +1,200 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Flores Amarillas para Ti</title>
-  <link rel="icon" href="flor.png" type="image/png">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      overflow: hidden;
-      background: linear-gradient(to bottom, #fffbe6, #ffd700);
-      font-family: 'Segoe UI', sans-serif;
-      color: #4b3e2e;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>🌸 Un regalo para ti 🌸</title>
+<link rel="icon" href="flor.png" type="image/png">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+    font-family: 'Segoe UI', sans-serif;
+    color: #5c3a3a;
+    text-align: center;
+  }
 
-    h1 {
-      font-size: 2.5em;
-      margin-top: 1em;
-    }
+  h1 {
+    font-size: 2.8em;
+    margin-top: 1em;
+    color: #d147a3;
+  }
 
-    p {
-      font-size: 1.1em;
-      max-width: 600px;
-      margin: auto;
-    }
+  p {
+    font-size: 1.1em;
+    max-width: 650px;
+    margin: 0.8em auto;
+  }
 
-    .button {
-      background-color: #ffcc00;
-      border: none;
-      padding: 1em 2em;
-      font-size: 1em;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      margin-top: 2em;
-      z-index: 2;
-      position: relative;
-    }
+  .button {
+    background-color: #ff77aa;
+    border: none;
+    padding: 1em 2em;
+    font-size: 1em;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2em;
+    position: relative;
+    z-index: 2;
+  }
 
-    .button:hover {
-      background-color: #e6b800;
-    }
+  .button:hover {
+    transform: scale(1.05);
+    background-color: #e06699;
+  }
 
-    .flower {
-      font-size: 4em;
-      opacity: 0;
-      transform: scale(0.5);
-      transition: all 1s ease;
-      margin-top: 2em;
-      z-index: 2;
-      position: relative;
-    }
+  .flower {
+    font-size: 4em;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: all 1s ease;
+    margin-top: 2em;
+    position: relative;
+    z-index: 2;
+  }
 
-    .flower.show {
-      opacity: 1;
-      transform: scale(1.2);
-    }
+  .flower.show {
+    opacity: 1;
+    transform: scale(1.3) rotate(-5deg);
+  }
 
-    .message {
-      font-size: 1.2em;
-      margin-top: 1em;
-      opacity: 0;
-      transition: opacity 1.5s ease;
-      z-index: 2;
-      position: relative;
-    }
+  .message {
+    font-size: 1.2em;
+    margin-top: 1em;
+    opacity: 0;
+    transition: opacity 1.8s ease;
+    z-index: 2;
+    position: relative;
+  }
 
-    .message.show {
-      opacity: 1;
-    }
+  .message.show {
+    opacity: 1;
+  }
 
-    #flower-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
+  #flower-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
 
-    .falling-flower {
-      position: absolute;
-      top: -50px;
-      font-size: 1.8em;
-      animation: fall 6s linear infinite;
-      opacity: 0.9;
-    }
+  .falling-flower {
+    position: absolute;
+    top: -60px;
+    font-size: 1.8em;
+    animation: drift 7s linear infinite;
+    opacity: 0.85;
+  }
 
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); }
-    }
+  @keyframes drift {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+  }
 
-    /* Visualizador sincronizado */
-    #visualizador {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 80px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      gap: 6px;
-      z-index: 2;
-      padding: 0 1em;
-    }
+  #visualizador {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 5px;
+    z-index: 2;
+    padding: 0 1em;
+  }
 
-    .barra {
-      flex: 1;
-      max-width: 20px;
-      height: 60px;
-      background: linear-gradient(to top, #fbc02d, #fff176);
-      border-radius: 4px;
-    }
-  </style>
+  .barra {
+    flex: 1;
+    max-width: 18px;
+    height: 60px;
+    background: linear-gradient(to top, #ff77aa, #ffc1e3);
+    border-radius: 5px;
+  }
+</style>
 </head>
 <body>
-  <h1>🌼 Te regalo flores amarillas 🌼</h1>
-  <p>Porque el 21 de septiembre no es solo una fecha, es un deseo: que todo lo bueno te florezca. Que el sol te abrace fuerte, que el amor te encuentre, y que nunca falten motivos para sonreír.</p>
-  <p style="margin-top:2em; font-weight:bold;">Te quiero mucho 💛<br>Gracias por tu amistad, por estar, por ser tú.</p>
-  <p style="margin-top:1em; font-style:italic;">Aunque no pueda regalarte flores físicamente,<br>te hice esto con todo mi cariño.</p>
+<h1>🌸 Para ti, con cariño 🌸</h1>
+<p>Hoy no solo quiero decirte “feliz día”, sino enviarte un abrazo en forma de flores. Que la alegría y el amor florezcan siempre en tu camino.</p>
+<p style="margin-top:1.5em; font-weight:bold;">Gracias por tu amistad 💖<br>Por estar, por compartir y por ser tú.</p>
 
-  <button class="button" onclick="mostrarFlor()">Recibe tu flor</button>
+<button class="button" onclick="mostrarFlor()">Recibe tu detalle 🌺</button>
 
-  <div id="flor" class="flower">💐</div>
-  <div id="mensaje" class="message">¡Feliz 21 de septiembre! Que tus días se llenen de luz, color y cariño 🌞</div>
-  <div id="flower-container"></div>
+<div id="flor" class="flower">🌷</div>
+<div id="mensaje" class="message">¡Que cada día sea tan hermoso como tú! 🌞🌸</div>
+<div id="flower-container"></div>
 
-  <!-- Visualizador -->
-  <div id="visualizador">
-    <!-- 25 barras -->
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-  </div>
+<div id="visualizador">
+  <div class="barra"></div><div class="barra"></div><div class="barra"></div>
+  <div class="barra"></div><div class="barra"></div><div class="barra"></div>
+  <div class="barra"></div><div class="barra"></div><div class="barra"></div>
+  <div class="barra"></div>
+</div>
 
-  <!-- Audio -->
-  <audio id="audio" preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
-    Tu navegador no soporta audio.
-  </audio>
+<audio id="audio" src="music.mp3" preload="auto" crossorigin="anonymous"></audio>
 
-  <script>
-    function mostrarFlor() {
-      document.getElementById('flor').classList.add('show');
-      setTimeout(() => {
-        document.getElementById('mensaje').classList.add('show');
-        lanzarFlores();
-        reproducirMusica();
-      }, 1200);
-    }
+<script>
+function mostrarFlor() {
+  document.getElementById('flor').classList.add('show');
+  setTimeout(() => {
+    document.getElementById('mensaje').classList.add('show');
+    lanzarFlores();
+    reproducirMusica();
+  }, 1200);
+}
 
-    function lanzarFlores() {
-      const ancho = window.innerWidth;
-      const cantidad = ancho < 600 ? 25 : 50;
-      const contenedor = document.getElementById('flower-container');
-      const emojis = ['🌻', '💛', '💐', '🧡', '🌼'];
+function lanzarFlores() {
+  const ancho = window.innerWidth;
+  const cantidad = ancho < 600 ? 20 : 40;
+  const contenedor = document.getElementById('flower-container');
+  const emojis = ['🌸', '🌷', '💖', '🌺', '🌼'];
 
-      for (let i = 0; i < cantidad; i++) {
-        const flor = document.createElement('div');
-        flor.classList.add('falling-flower');
-        flor.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        flor.style.left = Math.random() * ancho + 'px';
-        flor.style.animationDuration = (4 + Math.random() * 3) + 's';
-        contenedor.appendChild(flor);
-        setTimeout(() => flor.remove(), 7000);
+  for (let i = 0; i < cantidad; i++) {
+    const flor = document.createElement('div');
+    flor.classList.add('falling-flower');
+    flor.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    flor.style.left = Math.random() * ancho + 'px';
+    flor.style.animationDuration = (5 + Math.random() * 3) + 's';
+    contenedor.appendChild(flor);
+    setTimeout(() => flor.remove(), 7000);
+  }
+}
+
+function reproducirMusica() {
+  const audio = document.getElementById('audio');
+  audio.volume = 0.4;
+  audio.play().then(() => {
+    const context = new (window.AudioContext || window.webkitAudioContext)();
+    const source = context.createMediaElementSource(audio);
+    const analyser = context.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(context.destination);
+    analyser.fftSize = 64;
+
+    const barras = document.querySelectorAll('.barra');
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function animarVisualizador() {
+      analyser.getByteFrequencyData(dataArray);
+      for (let i = 0; i < barras.length; i++) {
+        barras[i].style.height = (dataArray[i] / 2 + 20) + 'px';
       }
+      requestAnimationFrame(animarVisualizador);
     }
 
-    function reproducirMusica() {
-      const audio = document.getElementById('audio');
-      audio.volume = 0.4;
-
-      audio.play().then(() => {
-        const context = new (window.AudioContext || window.webkitAudioContext)();
-        const source = context.createMediaElementSource(audio);
-        const analyser = context.createAnalyser();
-        source.connect(analyser);
-        analyser.connect(context.destination);
-        analyser.fftSize = 64;
-
-        const barras = document.querySelectorAll('.barra');
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-
-        function animarVisualizador() {
-          analyser.getByteFrequencyData(dataArray);
-          for (let i = 0; i < barras.length; i++) {
-            const valor = dataArray[i] || 0;
-            barras[i].style.height = (valor / 2 + 20) + 'px';
-          }
-          requestAnimationFrame(animarVisualizador);
-        }
-
-        animarVisualizador();
-      }).catch(e => {
-        console.log("Autoplay bloqueado o archivo no encontrado:", e);
-      });
-    }
-  </script>
+    animarVisualizador();
+  }).catch(e => {
+    console.log("Autoplay bloqueado");
+  });
+}
+</script>
 </body>
 </html>
