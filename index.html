@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>🌸 Un regalo para ti 🌸</title>
+<title>🌸 Regalo Especial 🌸</title>
 <link rel="icon" href="flor.png" type="image/png">
 <style>
   html, body {
@@ -86,15 +86,15 @@
 
   .falling-flower {
     position: absolute;
-    top: -60px;
     font-size: 1.8em;
-    animation: drift 7s linear infinite;
-    opacity: 0.85;
+    animation: drift 7s ease-in-out forwards;
+    opacity: 0.9;
   }
 
   @keyframes drift {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(100vh) rotate(360deg); }
+    0% { transform: translate(0, -60px) rotate(0deg); opacity:0; }
+    20% { opacity:1; }
+    100% { transform: translate(var(--x), 100vh) rotate(360deg); }
   }
 
   #visualizador {
@@ -143,10 +143,16 @@
 <script>
 function mostrarFlor() {
   document.getElementById('flor').classList.add('show');
+
+  // Reproducir música al hacer clic
+  const audio = document.getElementById('audio');
+  audio.volume = 0.4;
+  audio.play().catch(e => console.log("Reproducción bloqueada"));
+
   setTimeout(() => {
     document.getElementById('mensaje').classList.add('show');
     lanzarFlores();
-    reproducirMusica();
+    reproducirVisualizador(audio);
   }, 1200);
 }
 
@@ -161,39 +167,34 @@ function lanzarFlores() {
     flor.classList.add('falling-flower');
     flor.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     flor.style.left = Math.random() * ancho + 'px';
+    flor.style.setProperty('--x', (Math.random() * 200 - 100) + 'px');
     flor.style.animationDuration = (5 + Math.random() * 3) + 's';
     contenedor.appendChild(flor);
     setTimeout(() => flor.remove(), 7000);
   }
 }
 
-function reproducirMusica() {
-  const audio = document.getElementById('audio');
-  audio.volume = 0.4;
-  audio.play().then(() => {
-    const context = new (window.AudioContext || window.webkitAudioContext)();
-    const source = context.createMediaElementSource(audio);
-    const analyser = context.createAnalyser();
-    source.connect(analyser);
-    analyser.connect(context.destination);
-    analyser.fftSize = 64;
+function reproducirVisualizador(audio) {
+  const context = new (window.AudioContext || window.webkitAudioContext)();
+  const source = context.createMediaElementSource(audio);
+  const analyser = context.createAnalyser();
+  source.connect(analyser);
+  analyser.connect(context.destination);
+  analyser.fftSize = 64;
 
-    const barras = document.querySelectorAll('.barra');
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
+  const barras = document.querySelectorAll('.barra');
+  const bufferLength = analyser.frequencyBinCount;
+  const dataArray = new Uint8Array(bufferLength);
 
-    function animarVisualizador() {
-      analyser.getByteFrequencyData(dataArray);
-      for (let i = 0; i < barras.length; i++) {
-        barras[i].style.height = (dataArray[i] / 2 + 20) + 'px';
-      }
-      requestAnimationFrame(animarVisualizador);
+  function animarVisualizador() {
+    analyser.getByteFrequencyData(dataArray);
+    for (let i = 0; i < barras.length; i++) {
+      barras[i].style.height = (dataArray[i] / 2 + 20) + 'px';
     }
+    requestAnimationFrame(animarVisualizador);
+  }
 
-    animarVisualizador();
-  }).catch(e => {
-    console.log("Autoplay bloqueado");
-  });
+  animarVisualizador();
 }
 </script>
 </body>
