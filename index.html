@@ -2,227 +2,82 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Flores Rosadas para Ti</title>
+  <title>Un Regalo Amarillo</title>
   <link rel="icon" href="flor.png" type="image/png">
   <style>
-    html, body {
+    body {
       margin: 0;
       padding: 0;
       height: 100vh;
+      background: radial-gradient(circle at center, #fffde7 0%, #ffe082 100%);
+      font-family: 'Georgia', serif;
+      color: #5d4a00;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
-      background: linear-gradient(135deg, #fbeaff, #ffcce0);
-      font-family: 'Segoe UI', sans-serif;
-      color: #5c3a5c;
-      text-align: center;
-      animation: fondo 20s ease infinite;
     }
 
-    @keyframes fondo {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .tarjeta {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 2em;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(255, 204, 0, 0.3);
+      animation: aparecer 2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes aparecer {
+      to { opacity: 1; transform: scale(1); }
     }
 
     h1 {
-      font-size: 3em;
-      margin-top: 1em;
-      animation: fadeIn 2s ease forwards;
-      opacity: 0;
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+      font-weight: normal;
     }
 
     p {
       font-size: 1.2em;
-      max-width: 700px;
-      margin: auto;
-      animation: fadeIn 2.5s ease forwards;
-      opacity: 0;
+      margin: 1em 0;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    .flor-svg {
+      width: 100px;
+      margin: 1em auto;
+      animation: girar 10s linear infinite;
     }
 
-    .button {
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      padding: 1em 2em;
-      font-size: 1.1em;
-      border-radius: 12px;
-      cursor: pointer;
-      margin-top: 2em;
-      box-shadow: 0 0 15px #ffb6c1;
-      animation: pulse 2s infinite;
-      z-index: 2;
-      position: relative;
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 15px #ffb6c1; }
-      50% { box-shadow: 0 0 25px #ffc0cb; }
-    }
-
-    .flower {
-      font-size: 5em;
-      opacity: 0;
-      transform: scale(0.5);
-      transition: all 1s ease;
-      margin-top: 2em;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .flower.show {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .message {
-      font-size: 1.3em;
-      margin-top: 1em;
-      opacity: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid #5c3a5c;
-      width: 0;
-      animation: typing 4s steps(40, end) forwards;
-    }
-
-    @keyframes typing {
-      to {
-        width: 100%;
-        opacity: 1;
-      }
-    }
-
-    #flower-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .falling-flower {
-      position: absolute;
-      top: -50px;
-      font-size: 2em;
-      animation: fall 6s linear infinite;
-      opacity: 0.9;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); }
-    }
-
-    #visualizador {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 80px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      gap: 6px;
-      z-index: 2;
-      padding: 0 1em;
-    }
-
-    .barra {
-      flex: 1;
-      max-width: 20px;
-      height: 60px;
-      background: linear-gradient(to top, #ff80ab, #fce4ec);
-      border-radius: 4px;
-      transition: height 0.2s ease;
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <h1>🌸 Te regalo flores rosadas 🌸</h1>
-  <p>Porque el cariño también florece. Que este 21 de septiembre te abrace con dulzura, que la vida te regale momentos suaves y que nunca falte el amor que mereces.</p>
-  <p style="margin-top:2em; font-weight:bold;">Te quiero mucho 💖<br>Gracias por tu ternura, tu presencia, tu magia.</p>
-  <p style="margin-top:1em; font-style:italic;">No son flores físicas, pero están hechas con todo mi corazón.</p>
-
-  <button class="button" onclick="mostrarFlor()">Recibe tu flor</button>
-
-  <div id="flor" class="flower">🌷</div>
-  <div id="mensaje" class="message">¡Feliz 21 de septiembre! Que tu mundo se llene de luz, pétalos y sonrisas 🌺</div>
-  <div id="flower-container"></div>
-
-  <div id="visualizador">
-    <!-- 25 barras -->
-    <div class="barra"></div>
-    <!-- ... repite 24 veces más -->
+  <div class="tarjeta">
+    <h1>🌞 Flores Amarillas para Ti</h1>
+    <p>Hoy te regalo luz, color y esperanza. Que cada pétalo te abrace con cariño, y que el sol te recuerde lo especial que eres.</p>
+    <div class="flor-svg">
+      <svg viewBox="0 0 64 64" fill="#fdd835" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="10" fill="#fbc02d"/>
+        <path d="M32 2 L36 20 L32 18 L28 20 Z" />
+        <path d="M32 62 L36 44 L32 46 L28 44 Z" />
+        <path d="M2 32 L20 36 L18 32 L20 28 Z" />
+        <path d="M62 32 L44 36 L46 32 L44 28 Z" />
+        <!-- Puedes agregar más pétalos si quieres -->
+      </svg>
+    </div>
+    <p style="font-style:italic;">Gracias por estar. Este regalo digital está hecho con todo mi cariño 💛</p>
   </div>
 
-  <audio id="audio" src="music.mp3" preload="auto" crossorigin="anonymous"></audio>
-
-  <script>
-    function mostrarFlor() {
-      document.getElementById('flor').classList.add('show');
-      setTimeout(() => {
-        document.getElementById('mensaje').classList.add('show');
-        lanzarFlores();
-        reproducirMusica();
-      }, 1200);
-    }
-
-    function lanzarFlores() {
-      const ancho = window.innerWidth;
-      const cantidad = ancho < 600 ? 25 : 50;
-      const contenedor = document.getElementById('flower-container');
-      const emojis = ['🌷', '💖', '🌸', '🦋', '🌺'];
-
-      for (let i = 0; i < cantidad; i++) {
-        const flor = document.createElement('div');
-        flor.classList.add('falling-flower');
-        flor.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        flor.style.left = Math.random() * ancho + 'px';
-        flor.style.animationDuration = (4 + Math.random() * 3) + 's';
-        contenedor.appendChild(flor);
-        setTimeout(() => flor.remove(), 7000);
-      }
-    }
-
-    function reproducirMusica() {
-      const audio = document.getElementById('audio');
-      audio.volume = 0.4;
-
-      audio.play().then(() => {
-        const context = new (window.AudioContext || window.webkitAudioContext)();
-        const source = context.createMediaElementSource(audio);
-        const analyser = context.createAnalyser();
-        source.connect(analyser);
-        analyser.connect(context.destination);
-        analyser.fftSize = 64;
-
-        const barras = document.querySelectorAll('.barra');
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-
-        function animarVisualizador() {
-          analyser.getByteFrequencyData(dataArray);
-          for (let i = 0; i < barras.length; i++) {
-            const valor = dataArray[i] || 0;
-            barras[i].style.height = (valor / 2 + 20) + 'px';
-          }
-          requestAnimationFrame(animarVisualizador);
-        }
-
-        animarVisualizador();
-      }).catch(e => {
-        console.log("Autoplay bloqueado por el navegador");
-      });
-    }
-  </script>
+  <audio autoplay loop src="music.mp3" preload="auto" crossorigin="anonymous"></audio>
 </body>
 </html>
