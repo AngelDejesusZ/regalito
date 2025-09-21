@@ -138,36 +138,20 @@
 
   <div id="visualizador">
     <!-- 25 barras -->
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
-    <div class="barra"></div>
+    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
+    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
+    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
+    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
+    <div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div><div class="barra"></div>
   </div>
 
   <audio id="audio" src="music.mp3" preload="auto"></audio>
 
   <script>
+    let contexto; 
+    let source;
+    let analyser;
+
     function mostrarFlor() {
       document.getElementById('flor').classList.add('show');
       setTimeout(() => {
@@ -198,21 +182,23 @@
       const audio = document.getElementById('audio');
       audio.volume = 0.4;
 
-      audio.play().then(() => {
-        activarVisualizador(audio);
-      }).catch(e => {
-        console.log("Autoplay bloqueado por el navegador");
+      // Crear el contexto al primer click
+      if (!contexto) {
+        contexto = new (window.AudioContext || window.webkitAudioContext)();
+        source = contexto.createMediaElementSource(audio);
+        analyser = contexto.createAnalyser();
+        source.connect(analyser);
+        analyser.connect(contexto.destination);
+        analyser.fftSize = 64;
+        activarVisualizador();
+      }
+
+      audio.play().catch(e => {
+        console.log("El navegador bloqueó la reproducción automática:", e);
       });
     }
 
-    function activarVisualizador(audio) {
-      const context = new (window.AudioContext || window.webkitAudioContext)();
-      const source = context.createMediaElementSource(audio);
-      const analyser = context.createAnalyser();
-      source.connect(analyser);
-      analyser.connect(context.destination);
-      analyser.fftSize = 64;
-
+    function activarVisualizador() {
       const barras = document.querySelectorAll('.barra');
       const bufferLength = analyser.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
@@ -231,3 +217,4 @@
   </script>
 </body>
 </html>
+
